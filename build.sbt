@@ -80,8 +80,8 @@ lazy val testSettings = Seq(
 )
 
 lazy val compilationSettings = Seq(
-  scalaVersion := "2.12.6",
-  crossScalaVersions := Seq("2.11.11", scalaVersion.value),
+  scalaVersion := "2.11.11",
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.6"),
   addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full),
   scalacOptions ++= Seq(
     "-unchecked",
