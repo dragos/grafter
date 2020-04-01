@@ -79,10 +79,17 @@ lazy val testSettings = Seq(
   coverageEnabled := false
 )
 
+val paradiseVersion = settingKey[String]("paradiseVersion")
+
 lazy val compilationSettings = Seq(
   scalaVersion := "2.11.11",
   crossScalaVersions := Seq(scalaVersion.value, "2.12.6"),
-  addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full),
+  paradiseVersion := {
+    val v = scalaVersion.value
+    v match { case "2.11.8" => "2.1.0"; case _ => "2.1.1" }
+  },
+  autoCompilerPlugins := true,
+  libraryDependencies +=  compilerPlugin("org.scalamacros" % "paradise" % paradiseVersion.value cross CrossVersion.full),
   scalacOptions ++= Seq(
     "-unchecked",
     "-feature",
